@@ -1,0 +1,5 @@
+CREATE TABLE projects (
+  id VARCHAR(32) PRIMARY KEY,
+  name VARCHAR NOT NULL,
+  description VARCHAR NOT NULL
+);

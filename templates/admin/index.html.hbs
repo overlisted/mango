@@ -1,0 +1,34 @@
+<html>
+  good morning
+
+  <script>
+    window.onload = () => {
+      document.getElementById("upsert-project").onsubmit = async e => {
+        e.preventDefault();
+        await fetch("admin/api/projects", { method: "post", body: new FormData(e.target) });
+        window.location = window.location;
+      }
+    }
+  </script>
+
+  <body>
+    <h1>upsert project</h1>
+    <form id="upsert-project">
+      <label>id</label>
+      <input name="id">
+      <label>display name</label>
+      <input name="name">
+      <label>desc</label>
+      <input name="description">
+      <input type="submit" value="send">
+    </form>
+
+    <h1>projects</h1>
+    {{#each projects}}
+      <article>
+        <h2>{{name}} (id {{id}})</h2>
+        <span>{{description}}</span>
+      </article>
+    {{/each}}
+  </body>
+</html>

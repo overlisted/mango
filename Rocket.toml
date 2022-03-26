@@ -1,0 +1,3 @@
+[global.databases.api]
+# overwrite this in .env if you need to
+url = "postgres://localhost/mango"
