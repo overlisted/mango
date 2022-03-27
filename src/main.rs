@@ -1,3 +1,5 @@
+#![feature(adt_const_params)]
+
 #[macro_use]
 extern crate diesel;
 #[macro_use]

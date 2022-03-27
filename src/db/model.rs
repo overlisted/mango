@@ -8,3 +8,10 @@ pub struct Project {
     pub name: String,
     pub description: String,
 }
+
+#[derive(Queryable, Insertable, AsChangeset, Serialize)]
+#[table_name = "configs"]
+pub struct PageConfig {
+    pub name: String,
+    pub data: serde_json::Value,
+}

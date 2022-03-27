@@ -7,9 +7,9 @@ edition = "2021"
 tokio = "1"
 dotenv = "0"
 
-rocket = { version = "0.5.0-rc.1", features = ["secrets"] }
+rocket = { version = "0.5.0-rc.1", features = ["secrets", "json"] }
 
-diesel = { version = "1", features = ["postgres", "r2d2"] }
+diesel = { version = "1", features = ["postgres", "serde_json"] }
 diesel_migrations = "1"
 serde = "1"
 rocket_sync_db_pools = { version = "0.1.0-rc.1", features = ["diesel_postgres_pool"] }

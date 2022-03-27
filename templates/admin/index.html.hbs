@@ -7,13 +7,37 @@
         e.preventDefault();
         await fetch("admin/api/projects", { method: "post", body: new FormData(e.target) });
         window.location = window.location;
-      }
-    }
+      };
+
+      document.getElementById("upsert-config").onsubmit = async e => {
+        e.preventDefault();
+        const name = document.getElementById("upsert-config-name").value;
+        const data = document.getElementById("upsert-config-data").value;
+        await fetch(`admin/api/config/${name}`, { method: "post", body: data });
+        window.location = window.location;
+      };
+    };
   </script>
 
   <body>
-    <h1>upsert project</h1>
-    <form id="upsert-project">
+    <h1>page configs</h1>
+    <h2>upsert</h2>
+    <form id="upsert-config" autocomplete="off">
+      <label>name</label>
+      <input id="upsert-config-name" name="name">
+      <label>data</label>
+      <input id="upsert-config-data" name="data">
+      <input type="submit" value="send">
+    </form>
+
+    {{#each configs}}
+      <h2>{{name}}</h2>
+      <code>{{data}}</code>
+    {{/each}}
+
+    <h1>projects</h1>
+    <h2>upsert</h2>
+    <form id="upsert-project" autocomplete="off">
       <label>id</label>
       <input name="id">
       <label>display name</label>
@@ -22,8 +46,6 @@
       <input name="description">
       <input type="submit" value="send">
     </form>
-
-    <h1>projects</h1>
     {{#each projects}}
       <article>
         <h2>{{name}} (id {{id}})</h2>
