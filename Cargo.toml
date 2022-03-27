@@ -10,7 +10,7 @@ dotenv = "0"
 chrono = { version = "0", features = ["serde"] }
 ipnetwork = "0"
 
-rocket = { version = "0.5.0-rc.1", features = ["secrets", "json"] }
+rocket = { version = "0.5.0-rc.1", features = ["json"] }
 
 diesel = { version = "1", features = ["postgres", "serde_json", "chrono", "network-address"] }
 diesel_migrations = "1"

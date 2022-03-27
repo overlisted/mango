@@ -9,13 +9,15 @@ impl<'r> FromRequest<'r> for AdminAccess {
     async fn from_request(request: &'r Request<'_>) -> Outcome<Self, Self::Error> {
         let cookie = request
             .cookies()
-            .get_private("nothing")
+            .get("nothing")
             .map(|x| String::from(x.value()));
 
-        // no key = everyone has access. useful for development because rocket resets the encryption
-        // thing after every restart
-        if cookie == std::env::var("ADMIN_KEY").ok() {
-            Outcome::Success(AdminAccess)
+        if let Ok(key) = std::env::var("ADMIN_KEY") {
+            if cookie == Some(key) {
+                Outcome::Success(AdminAccess)
+            } else {
+                Outcome::Failure((Status::Unauthorized, ()))
+            }
         } else {
             Outcome::Failure((Status::Unauthorized, ()))
         }

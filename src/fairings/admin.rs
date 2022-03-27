@@ -7,7 +7,7 @@ fn teapot() -> (Status, &'static str) {
 
 #[rocket::post("/login", data = "<key>")]
 fn login(jar: &CookieJar<'_>, key: String) {
-    jar.add_private(Cookie::new("nothing", key));
+    jar.add(Cookie::new("nothing", key));
 }
 
 #[rocket::get("/")]
