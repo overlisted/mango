@@ -1,0 +1,6 @@
+CREATE TABLE ip_log (
+  id BIGSERIAL PRIMARY KEY,
+  addr inet NOT NULL,
+  path VARCHAR NOT NULL,
+  timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

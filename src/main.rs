@@ -15,6 +15,7 @@ fn rocket() -> _ {
 
     rocket::build()
         .attach(fairings::db())
+        .attach(fairings::ip_log())
         .attach(fairings::admin())
         .attach(fairings::frontend())
 }

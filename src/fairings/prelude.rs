@@ -3,7 +3,8 @@ pub use crate::guards::*;
 pub use crate::db::{model, schema};
 pub use diesel::prelude::*;
 
-pub use rocket::fairing::{AdHoc, Fairing};
+pub use rocket::async_trait;
+pub use rocket::fairing::{AdHoc, Fairing, Info, Kind};
 pub use rocket::form::{Form, Strict};
 pub use rocket::http::{Cookie, CookieJar, Status};
 pub use rocket::serde::json::Json;
