@@ -1,3 +1,5 @@
+use rocket::fs;
+
 use super::prelude::*;
 
 #[rocket::get("/")]
@@ -15,5 +17,6 @@ pub fn fairing() -> impl Fairing {
         rocket
             .attach(Template::fairing())
             .mount("/", rocket::routes![index])
+            .mount("/", fs::FileServer::new("static", fs::Options::None))
     })
 }
