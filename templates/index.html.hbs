@@ -1,6 +1,16 @@
 <html>
   <title>{{config.title}}</title>
   <body>
+    <h2>{{config.title}}</h1>
+    {{config.about}}
+
+    <ul>
+      {{#each config.links}}
+        <li><a href="{{href}}">{{text}}</a></li>
+      {{/each}}
+    </ul>
+
+    <h1>projects</h1>
     {{#each projects}}
       <article>
         <h1>{{name}}</h1>

@@ -45,7 +45,7 @@ async fn upsert_project(_access: AdminAccess, db: Db, data: Form<Strict<model::P
 }
 
 #[rocket::post("/config/<name>", data = "<data>")]
-async fn upsert_data(_access: AdminAccess, db: Db, name: String, data: Json<serde_json::Value>) {
+async fn upsert_config(_access: AdminAccess, db: Db, name: String, data: Json<serde_json::Value>) {
     db.run(move |conn| {
         diesel::insert_into(schema::configs::table)
             .values(model::PageConfig {
