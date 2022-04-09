@@ -3,7 +3,7 @@ use rocket::fs;
 use super::prelude::*;
 
 #[rocket::get("/")]
-async fn index(db: Db, config: PageConfig<"home">) -> Template {
+async fn index(db: Db, configs: PageConfigs) -> Template {
     let highlights = db
         .run(|conn| {
             schema::projects::table
@@ -16,7 +16,7 @@ async fn index(db: Db, config: PageConfig<"home">) -> Template {
 
     Template::render(
         "index",
-        json!({ "highlights": highlights, "config": config.0 }),
+        json!({ "highlights": highlights, "config": configs.get("home").await.unwrap() }),
     )
 }
 
