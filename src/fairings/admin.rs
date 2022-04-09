@@ -30,6 +30,35 @@ async fn index(_access: AdminAccess, db: Db) -> Template {
     )
 }
 
+#[derive(FromForm)]
+pub struct HighlightProject {
+    id: String,
+    highlight: String,
+}
+
+#[rocket::post("/highlights", data = "<data>")]
+pub async fn highlight_project(_access: AdminAccess, db: Db, data: Form<Strict<HighlightProject>>) {
+    let highlight = if &data.highlight == "true" {
+        true
+    } else {
+        false
+    };
+
+    db.run(move |conn| {
+        let id = schema::highlights::id.eq(&data.id);
+
+        if highlight {
+            diesel::insert_into(schema::highlights::table)
+                .values(id)
+                .execute(conn)
+        } else {
+            diesel::delete(schema::highlights::table.filter(id)).execute(conn)
+        }
+    })
+    .await
+    .unwrap();
+}
+
 #[rocket::post("/projects", data = "<data>")]
 async fn upsert_project(_access: AdminAccess, db: Db, data: Form<Strict<model::Project>>) {
     db.run(move |conn| {
@@ -96,6 +125,9 @@ pub fn fairing() -> impl Fairing {
         rocket
             .register("/admin", rocket::catchers![teapot])
             .mount("/admin", rocket::routes![login, index, ip_log])
-            .mount("/admin/api", rocket::routes![upsert_project, upsert_config])
+            .mount(
+                "/admin/api",
+                rocket::routes![highlight_project, upsert_project, upsert_config],
+            )
     })
 }

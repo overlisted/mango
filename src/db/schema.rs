@@ -6,6 +6,12 @@ table! {
 }
 
 table! {
+    highlights (id) {
+        id -> Varchar,
+    }
+}
+
+table! {
     ip_log (id) {
         id -> Int8,
         addr -> Inet,
@@ -22,4 +28,11 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(configs, ip_log, projects,);
+joinable!(highlights -> projects (id));
+
+allow_tables_to_appear_in_same_query!(
+    configs,
+    highlights,
+    ip_log,
+    projects,
+);

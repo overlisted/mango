@@ -3,6 +3,12 @@
 
   <script>
     window.onload = () => {
+      document.getElementById("highlight-project").onsubmit = async e => {
+        e.preventDefault();
+        await fetch("admin/api/highlights", { method: "post", body: new FormData(e.target) });
+        window.location = window.location;
+      };
+
       document.getElementById("upsert-project").onsubmit = async e => {
         e.preventDefault();
         await fetch("admin/api/projects", { method: "post", body: new FormData(e.target) });
@@ -38,6 +44,15 @@
     {{/each}}
 
     <h1>projects</h1>
+    <h2>highlight</h2>
+    <form id="highlight-project" autocomplete="off">
+      <label>id</label>
+      <input name="id">
+      <label>highlight ("true" | _)</label>
+      <input name="highlight">
+      <input type="submit" value="send">
+    </form>
+
     <h2>upsert</h2>
     <form id="upsert-project" autocomplete="off">
       <label>id</label>
