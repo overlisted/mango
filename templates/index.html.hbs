@@ -7,23 +7,151 @@
     <meta name="theme-color" content="{{config.themeColor}}">
     <meta name="color-scheme" content="only light">
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
+
+    <style>
+      {{> base-styles }}
+
+      body {
+        width: 1000px;
+        min-height: 100vh;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      nav ul {
+        display: flex;
+      }
+
+      nav li {
+        margin-right: 16px;
+      }
+
+      main > article {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: auto max-content;
+        grid-auto-flow: column;
+        row-gap: 16px;
+        column-gap: 16px;
+      }
+
+      #links {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      }
+
+      #links li {
+        margin-left: 16px;
+      }
+
+      #contact li {
+        margin-top: 16px;
+      }
+
+      #contact li:first-child {
+        margin-top: 0;
+      }
+
+      #contact li img {
+        margin-right: 16px;
+      }
+
+      #contact li > * {
+        display: flex;
+        align-items: center;
+        padding: 16px;
+        border-radius: 6px;
+        height: 64px;
+      }
+
+      #contact li > *:hover {
+        text-decoration: underline;
+      }
+
+      #highlights ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        column-gap: 16px;
+        row-gap: 16px;
+      }
+
+      #highlights article *:last {
+        margin-top: 8px;
+      }
+
+      {{#each config.contact}}
+        #contact-{{id}} {
+          background-color: {{backgroundColor}};
+          color: {{textColor}};
+        }
+      {{/each}}
+    </style>
   </head>
   <body>
-    <h2>{{config.title}}</h1>
-    {{config.about}}
+    <div>
+      <header class="indent">
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+          </ul>
+        </nav>
+        <a href="https://github.com/overlisted/mango">Source code</a>
+      </header>
 
-    <ul>
-      {{#each config.links}}
-        <li><a href="{{href}}">{{text}}</a></li>
-      {{/each}}
-    </ul>
+      <main>
+        <article class="bg indent shadow">
+          <h1>{{config.title}}</h1>
+          <p>{{config.about}}</p>
 
-    <h1>highlights</h1>
-    {{#each highlights}}
-      <article>
-        <h1>{{name}}</h1>
-        <span>{{description}}</span>
-      </article>
-    {{/each}}
+          <ul id="links">
+            {{#each config.links}}
+              <li><a href="{{href}}"><img width="24" alt="{{alt}}" src="{{icon}}"></a></li>
+            {{/each}}
+          </ul>
+
+          <section id="contact">
+            <ul>
+              {{#each config.contact}}
+                <li>
+                  {{#if link}}
+                    <a id="contact-{{id}}" class="shadow" href="{{link}}">
+                      <img width="32" alt="{{alt}}" src="{{icon}}">
+                      {{text}}
+                    </a>
+                  {{else}}
+                    <div id="contact-{{id}}" class="shadow">
+                      <img width="32" alt="{{alt}}" src="{{icon}}">
+                      {{text}}
+                    </span>
+                  {{/if}}
+                </li>
+              {{/each}}
+            </ul>
+          </section>
+        </article>
+
+        <section id="highlights">
+          <h2 class="indent">My highlights</h2>
+          <ul>
+            {{#each highlights}}
+              <li>
+                <article class="bg indent shadow">
+                  <h2>{{name}}</h2>
+                  <p>{{description}}</p>
+                </article>
+              </li>
+            {{/each}}
+          </ul>
+        </section>
+      </main>
+    </div>
   </body>
 </html>
