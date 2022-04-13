@@ -12,17 +12,50 @@
       {{> base-styles }}
 
       body {
-        width: 1000px;
-        min-height: 100vh;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        display: grid;
+        justify-content: center;
+        grid-template-columns: 200px 1000px 200px;
+        column-gap: 16px;
       }
 
       header {
         display: flex;
+        grid-row-start: 1;
+        grid-column-start: 2;
         justify-content: space-between;
+      }
+
+      main {
+        grid-column-start: 2;
+        grid-row-start: 2;
+        display: flex;
+        flex-direction: column;
+      }
+
+      aside {
+        grid-row-start: 2;
+      }
+
+      aside.left {
+        grid-column-start: 1;
+      }
+
+      aside.right {
+        grid-column-start: 3;
+      }
+
+      @media (max-width: 1432px) {
+        body {
+          grid-template-columns: 1000px;
+        }
+
+        header, main {
+          grid-column-start: 1;
+        }
+
+        aside {
+          display: none;
+        }
       }
 
       nav ul {
@@ -52,30 +85,6 @@
         margin-left: 16px;
       }
 
-      #contact li {
-        margin-top: 16px;
-      }
-
-      #contact li:first-child {
-        margin-top: 0;
-      }
-
-      #contact li img {
-        margin-right: 16px;
-      }
-
-      #contact li > * {
-        display: flex;
-        align-items: center;
-        padding: 16px;
-        border-radius: 6px;
-        height: 64px;
-      }
-
-      #contact li > *:hover {
-        text-decoration: underline;
-      }
-
       #highlights ul {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -87,71 +96,103 @@
         margin-top: 8px;
       }
 
+      #contact li {
+        margin-top: 16px;
+      }
+
+      #contact li:first-child {
+        margin-top: 0;
+      }
+
+      #contact a:hover {
+        text-decoration: underline;
+      }
+
       {{#each config.contact}}
         #contact-{{id}} {
+          display: flex;
+          align-items: center;
+          padding: 16px;
+          border-radius: 6px;
+          height: 64px;
           background-color: {{backgroundColor}};
           color: {{textColor}};
+        }
+
+        #contact-{{id}} > img {
+          margin-right: 16px;
         }
       {{/each}}
     </style>
   </head>
   <body>
-    <div>
-      <header class="indent">
-        <nav>
+    <header class="indent">
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+        </ul>
+      </nav>
+      <a href="https://github.com/overlisted/mango">Source code</a>
+    </header>
+
+    {{#with config.aside}}
+      <aside class="left">
+        {{#if doRef}}
+          <a href="https://www.digitalocean.com/?refcode={{doRef}}&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge">
+            <img width="200" src="https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%203.svg" alt="DigitalOcean Referral Badge">
+          </a>
+        {{/if}}
+      </aside>
+
+      <aside class="right">
+      </aside>
+    {{/with}}
+
+    <main>
+      <article class="bg indent shadow">
+        <h1>{{config.title}}</h1>
+        <p>{{config.about}}</p>
+
+        <ul id="links">
+          {{#each config.links}}
+            <li><a href="{{href}}"><img width="24" alt="{{alt}}" src="{{icon}}"></a></li>
+          {{/each}}
+        </ul>
+
+        <section id="contact">
           <ul>
-            <li><a href="/">Home</a></li>
-          </ul>
-        </nav>
-        <a href="https://github.com/overlisted/mango">Source code</a>
-      </header>
-
-      <main>
-        <article class="bg indent shadow">
-          <h1>{{config.title}}</h1>
-          <p>{{config.about}}</p>
-
-          <ul id="links">
-            {{#each config.links}}
-              <li><a href="{{href}}"><img width="24" alt="{{alt}}" src="{{icon}}"></a></li>
-            {{/each}}
-          </ul>
-
-          <section id="contact">
-            <ul>
-              {{#each config.contact}}
-                <li>
-                  {{#if link}}
-                    <a id="contact-{{id}}" class="shadow" href="{{link}}">
-                      <img width="32" alt="{{alt}}" src="{{icon}}">
-                      {{text}}
-                    </a>
-                  {{else}}
-                    <div id="contact-{{id}}" class="shadow">
-                      <img width="32" alt="{{alt}}" src="{{icon}}">
-                      {{text}}
-                    </span>
-                  {{/if}}
-                </li>
-              {{/each}}
-            </ul>
-          </section>
-        </article>
-
-        <section id="highlights">
-          <h2 class="indent">My highlights</h2>
-          <ul>
-            {{#each highlights}}
+            {{#each config.contact}}
               <li>
-                <article class="bg indent shadow">
-                  <h2>{{name}}</h2>
-                  <p>{{description}}</p>
-                </article>
+                {{#if link}}
+                  <a id="contact-{{id}}" class="shadow" href="{{link}}">
+                    <img width="32" alt="{{alt}}" src="{{icon}}">
+                    {{text}}
+                  </a>
+                {{else}}
+                  <div id="contact-{{id}}" class="shadow">
+                    <img width="32" alt="{{alt}}" src="{{icon}}">
+                    {{text}}
+                  </span>
+                {{/if}}
               </li>
             {{/each}}
           </ul>
         </section>
-      </main>
-    </div>
+      </article>
+
+      <section id="highlights">
+        <h2 class="indent">My highlights</h2>
+        <ul>
+          {{#each highlights}}
+            <li>
+              <article class="bg indent shadow">
+                <h2>{{name}}</h2>
+                <p>{{description}}</p>
+              </article>
+            </li>
+          {{/each}}
+        </ul>
+      </section>
+    </main>
   </body>
 </html>
