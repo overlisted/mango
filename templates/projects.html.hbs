@@ -1,0 +1,48 @@
+<html lang="en">
+  <head>
+    {{> base-head }}
+
+    <title>Projects</title>
+    <meta name="description" content="{{config.description}}">
+    <meta name="theme-color" content="{{config.themeColor}}">
+
+    <style>
+      body {
+        width: 1000px;
+        margin: 0 auto;
+      }
+
+      article {
+        margin-bottom: 16px;
+      }
+
+      h2 span {
+        display: inline;
+        color: #AAAAAA
+      }
+
+      header h2 {
+        margin-top: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="indent">
+      {{> nav }}
+      <h2>All projects <span>({{count}})</span></h2>
+    </header>
+
+    <main>
+      <ul>
+        {{#each projects}}
+          <li>
+            <article class="bg indent shadow">
+              <h2>{{name}}</h2>
+              <p>{{description}}</p>
+            </article>
+          </li>
+        {{/each}}
+      </ul>
+    </main>
+  </body>
+</html>

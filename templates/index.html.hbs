@@ -1,16 +1,12 @@
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    {{> base-head }}
 
     <title>{{config.title}}</title>
     <meta name="description" content="{{config.description}}">
     <meta name="theme-color" content="{{config.themeColor}}">
-    <meta name="color-scheme" content="only light">
-    <meta name="viewport" content="initial-scale=1.0, width=device-width">
 
     <style>
-      {{> base-styles }}
-
       body {
         display: grid;
         justify-content: center;
@@ -19,10 +15,8 @@
       }
 
       header {
-        display: flex;
         grid-row-start: 1;
         grid-column-start: 2;
-        justify-content: space-between;
       }
 
       main {
@@ -56,14 +50,6 @@
         aside {
           display: none;
         }
-      }
-
-      nav ul {
-        display: flex;
-      }
-
-      nav li {
-        margin-right: 16px;
       }
 
       main > article {
@@ -127,12 +113,7 @@
   </head>
   <body>
     <header class="indent">
-      <nav>
-        <ul>
-          <li><a href="/">Home</a></li>
-        </ul>
-      </nav>
-      <a href="https://github.com/overlisted/mango">Source code</a>
+      {{> nav }}
     </header>
 
     {{#with config.aside}}

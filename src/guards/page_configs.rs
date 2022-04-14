@@ -3,7 +3,7 @@ use super::prelude::*;
 pub struct PageConfigs(super::Db);
 
 impl PageConfigs {
-    pub async fn get(&self, name: &'static str) -> diesel::QueryResult<serde_json::Value> {
+    pub async fn get(&self, name: &'static str) -> Option<serde_json::Value> {
         self.0
             .run(move |conn| {
                 schema::configs::table
@@ -12,6 +12,7 @@ impl PageConfigs {
                     .first::<serde_json::Value>(conn)
             })
             .await
+            .ok()
     }
 }
 
