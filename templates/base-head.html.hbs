@@ -25,15 +25,21 @@
   }
 
   #nav {
-    display: flex;
-    justify-content: space-between;
+    position: relative;
   }
 
-  nav ul {
-    display: flex;
+  #nav > a {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+  }
+
+  nav {
+    display: inline-block;
   }
 
   nav li {
+    display: inline-block;
     margin-right: 16px;
   }
 
