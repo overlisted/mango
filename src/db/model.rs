@@ -1,12 +1,49 @@
 use super::schema::*;
 use rocket::FromForm;
-use serde::Serialize;
+use serde::*;
 
-#[derive(Queryable, Insertable, AsChangeset, Serialize, FromForm)]
+#[derive(Identifiable, Queryable, Insertable, AsChangeset, Serialize, FromForm)]
 pub struct Project {
     pub id: String,
     pub name: String,
     pub description: String,
+    pub image: Option<String>,
+}
+
+#[derive(Associations, Identifiable, Queryable, Serialize)]
+#[belongs_to(TagType)]
+#[belongs_to(Project)]
+pub struct ProjectTag {
+    pub id: i64,
+    pub tag_type_id: i32,
+    pub project_id: String,
+}
+
+#[derive(Associations, Identifiable, Queryable, Serialize)]
+#[belongs_to(LinkType)]
+#[belongs_to(Project)]
+pub struct ProjectLink {
+    pub id: i64,
+    pub url: String,
+    pub name: String,
+    pub link_type_id: i32,
+    pub project_id: String,
+}
+
+#[derive(Identifiable, Queryable, Serialize)]
+pub struct TagType {
+    pub id: i32,
+    pub name: String,
+    pub bg_color: String,
+    pub fg_color: String,
+}
+
+#[derive(Identifiable, Queryable, Serialize)]
+pub struct LinkType {
+    pub id: i32,
+    pub icon: String,
+    pub bg_color: String,
+    pub fg_color: String,
 }
 
 #[derive(Queryable, Insertable, AsChangeset, Serialize)]

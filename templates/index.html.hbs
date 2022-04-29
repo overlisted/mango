@@ -12,6 +12,7 @@
         justify-content: center;
         grid-template-columns: 200px 1000px 200px;
         column-gap: 16px;
+        margin-bottom: 200px;
       }
 
       header {
@@ -69,11 +70,15 @@
         margin-left: 16px;
       }
 
-      #highlights ul {
+      #highlights > ul {
         display: grid;
         grid-template-columns: 1fr 1fr;
         column-gap: 16px;
         row-gap: 16px;
+      }
+
+      #highlights img {
+        width: 100%;
       }
 
       #highlights article *:last {
@@ -104,8 +109,54 @@
         }
 
         #contact-{{id}} > img {
-          margin-right: 16px;
+          margin-right: 8px;
         }
+      {{/each}}
+
+      .project-header {
+        display: flex;
+      }
+
+      {{#each highlights}}
+        {{#if project.image}}
+          #project-{{project.id}} {
+            position: relative;
+            grid-row: span 2/span 2;
+          }
+
+          #project-{{project.id}} .project-links {
+            position: absolute;
+            display: flex;
+            bottom: 0;
+            right: 0;
+            justify-content: end;
+            width: 100%;
+            background-color: transparent;
+          }
+        {{else}}
+          #project-{{project.id}} .project-links {
+            display: flex;
+            justify-content: end;
+          }
+        {{/if}}
+
+        {{#each links}}
+          #project-link-{{extra.id}} {
+            margin-left: 16px;
+            display: flex;
+            align-items: center;
+            border-radius: 6px;
+            padding: 8px;
+            font-weight: 500;
+            font-size: 18px;
+            background-color: {{type.bg_color}};
+            color: {{type.fg_color}};
+          }
+
+          #project-link-{{extra.id}} > img {
+            margin-right: 8px;
+          }
+        {{/each}}
       {{/each}}
     </style>
   </head>
@@ -163,10 +214,25 @@
         <h2 class="indent">My highlights</h2>
         <ul>
           {{#each highlights}}
-            <li>
-              <article class="bg indent shadow">
-                <h2>{{name}}</h2>
-                <p>{{description}}</p>
+            <li id="project-{{project.id}}" class="shadow bg">
+              <article>
+                <div class="indent">
+                  <h2>{{project.name}}</h1>
+                  <p>{{project.description}}</p>
+                </div>
+                {{#if project.image}}
+                  <img src="{{project.image}}" alt="Demo screenshot">
+                {{/if}}
+                <ul class="indent bg project-links">
+                  {{#each links}}
+                    <li>
+                      <a class="shadow" id="project-link-{{extra.id}}" href="{{extra.url}}">
+                        <img src="{{type.icon}}" height="24">
+                        <span>{{extra.name}}</span>
+                      </a>
+                    </li>
+                  {{/each}}
+                </ul>
               </article>
             </li>
           {{/each}}

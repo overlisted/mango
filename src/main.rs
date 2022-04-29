@@ -1,3 +1,5 @@
+#![feature(try_blocks)]
+
 #[macro_use]
 extern crate diesel;
 #[macro_use]
@@ -14,6 +16,7 @@ fn rocket() -> _ {
     rocket::build()
         .attach(fairings::db())
         .attach(fairings::ip_log())
+        .attach(fairings::handlebars())
         .attach(fairings::admin())
         .attach(fairings::frontend())
 }
