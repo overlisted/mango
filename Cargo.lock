@@ -3,6 +3,13 @@
 version = 3
 
 [[package]]
+name = "admin"
+version = "0.1.0"
+dependencies = [
+ "db",
+]
+
+[[package]]
 name = "aead"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -255,6 +262,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "049bb91fb4aaf0e3c7efa6cd5ef877dbbbd15b39dad06d9948de4ec8a75761ea"
 dependencies = [
  "cipher",
+]
+
+[[package]]
+name = "db"
+version = "0.1.0"
+dependencies = [
+ "chrono",
+ "diesel",
+ "ipnetwork",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
@@ -834,7 +852,7 @@ dependencies = [
 name = "mango"
 version = "0.1.0"
 dependencies = [
- "chrono",
+ "db",
  "diesel",
  "diesel_migrations",
  "dotenv",

@@ -1,6 +1,6 @@
 use super::prelude::*;
 
-embed_migrations!();
+diesel_migrations::embed_migrations!("db/migrations");
 
 async fn run_migrations(rocket: rocket::Rocket<rocket::Build>) -> rocket::Rocket<rocket::Build> {
     let conn = Db::get_one(&rocket).await.expect("database connection");

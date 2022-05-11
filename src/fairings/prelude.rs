@@ -1,6 +1,6 @@
 pub use crate::guards::*;
 
-pub use crate::db::{model, schema};
+pub use db::{model, schema};
 pub use diesel::prelude::*;
 
 pub use rocket::async_trait;
