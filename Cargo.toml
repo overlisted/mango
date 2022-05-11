@@ -10,13 +10,13 @@ dotenv = "0"
 chrono = { version = "0", features = ["serde"] }
 ipnetwork = "0"
 
-rocket = { version = "0.5.0-rc.1", features = ["json"] }
+rocket = { version = "0.5.0-rc.2", features = ["json"] }
 
 diesel = { version = "1", features = ["postgres", "serde_json", "chrono", "network-address"] }
 diesel_migrations = "1"
 serde = "1"
-rocket_sync_db_pools = { version = "0.1.0-rc.1", features = ["diesel_postgres_pool"] }
+rocket_sync_db_pools = { version = "0.1.0-rc.2", features = ["diesel_postgres_pool"] }
 
-handlebars = "3"
+handlebars = "4"
 serde_json = "1"
-rocket_dyn_templates = { version = "0.1.0-rc.1", features = ["handlebars"] }
+rocket_dyn_templates = { version = "0.1.0-rc.2", features = ["handlebars"] }

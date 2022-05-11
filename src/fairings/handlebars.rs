@@ -1,13 +1,14 @@
 use super::prelude::*;
+use handlebars::*;
 
 // https://github.com/sunng87/handlebars-rust/issues/43
-pub fn array_length_helper<'r, 'reg, 'rc, 's, 't0>(
-    h: &'r handlebars::Helper<'reg, 'rc>,
-    _: &'reg handlebars::Handlebars<'reg>,
-    _: &'rc handlebars::Context,
-    _: &'s mut handlebars::RenderContext<'reg, 'rc>,
-    out: &'t0 mut (dyn handlebars::Output + 't0),
-) -> Result<(), handlebars::RenderError> {
+pub fn array_length_helper(
+    h: &Helper,
+    _: &Handlebars,
+    _: &Context,
+    _: &mut RenderContext,
+    out: &mut dyn Output,
+) -> Result<(), RenderError> {
     let length = h
         .param(0)
         .as_ref()
@@ -23,7 +24,7 @@ pub fn array_length_helper<'r, 'reg, 'rc, 's, 't0>(
 }
 
 pub fn fairing() -> impl Fairing {
-    Template::custom(|h| {
+    rocket_dyn_templates::Template::custom(|h| {
         h.handlebars
             .register_helper("array_length", Box::new(array_length_helper));
     })
