@@ -17,6 +17,5 @@ fn rocket() -> _ {
         .attach(fairings::db())
         .attach(fairings::ip_log())
         .attach(fairings::handlebars())
-        .attach(fairings::admin())
         .attach(fairings::frontend())
 }
