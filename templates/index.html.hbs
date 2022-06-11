@@ -77,12 +77,20 @@
         row-gap: 16px;
       }
 
-      #highlights img {
+      #highlights .image {
         width: 100%;
       }
 
-      #highlights article *:last {
-        margin-top: 8px;
+      #highlights > ul > li {
+        display: flex; /* webkit bug */
+      }
+
+      #highlights article {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
       #contact li {
@@ -109,7 +117,7 @@
         }
 
         #contact-{{id}} > img {
-          margin-right: 8px;
+          margin-right: 16px;
         }
       {{/each}}
 
@@ -147,10 +155,9 @@
             align-items: center;
             border-radius: 6px;
             padding: 8px;
-            font-weight: 500;
-            font-size: 18px;
             background-color: {{type.bg_color}};
             color: {{type.fg_color}};
+            border: 1px solid {{type.border_color}};
           }
 
           #project-link-{{extra.id}} > img {
@@ -221,14 +228,14 @@
                   <p>{{project.description}}</p>
                 </div>
                 {{#if project.image}}
-                  <img src="{{project.image}}" alt="Demo screenshot">
+                  <img class="image" src="{{project.image}}" alt="Demo screenshot">
                 {{/if}}
                 <ul class="indent bg project-links">
                   {{#each links}}
                     <li>
                       <a class="shadow" id="project-link-{{extra.id}}" href="{{extra.url}}">
                         <img src="{{type.icon}}" height="24">
-                        <span>{{extra.short_name}}</span>
+                        <span>{{type.short_name}}</span>
                       </a>
                     </li>
                   {{/each}}
