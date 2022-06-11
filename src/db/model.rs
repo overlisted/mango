@@ -1,13 +1,13 @@
 use super::schema::*;
-use rocket::FromForm;
 use serde::*;
 
-#[derive(Identifiable, Queryable, Insertable, AsChangeset, Serialize, FromForm)]
+#[derive(Identifiable, Queryable, Insertable, AsChangeset, Serialize)]
 pub struct Project {
     pub id: String,
     pub name: String,
     pub description: String,
     pub image: Option<String>,
+    pub started: Option<chrono::NaiveDate>,
 }
 
 #[derive(Associations, Identifiable, Queryable, Serialize)]

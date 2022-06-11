@@ -53,6 +53,7 @@ table! {
         name -> Varchar,
         description -> Varchar,
         image -> Nullable<Varchar>,
+        started -> Nullable<Date>,
     }
 }
 

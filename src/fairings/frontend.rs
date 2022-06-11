@@ -24,6 +24,7 @@ async fn index(db: Db, configs: PageConfigs) -> Template {
             let projects = schema::projects::table
                 .inner_join(schema::highlights::table)
                 .select(schema::projects::all_columns)
+                .order_by((schema::projects::started.desc(), schema::projects::name.desc()))
                 .load::<model::Project>(conn)?;
 
             let links = groups_into_json(
@@ -51,7 +52,9 @@ async fn index(db: Db, configs: PageConfigs) -> Template {
 async fn projects(db: Db, configs: PageConfigs) -> Template {
     let projects: diesel::QueryResult<Vec<_>> = db
         .run(|conn| try {
-            let projects = schema::projects::table.load::<model::Project>(conn)?;
+            let projects = schema::projects::table
+                .order_by((schema::projects::started.desc(), schema::projects::name.desc()))
+                .load::<model::Project>(conn)?;
 
             let links = groups_into_json(
                 model::ProjectLink::belonging_to(&projects)
