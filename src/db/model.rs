@@ -44,6 +44,7 @@ pub struct LinkType {
     pub icon: String,
     pub bg_color: String,
     pub fg_color: String,
+    pub short_name: Option<String>,
 }
 
 #[derive(Queryable, Insertable, AsChangeset, Serialize)]

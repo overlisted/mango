@@ -26,6 +26,7 @@ table! {
         icon -> Varchar,
         bg_color -> Varchar,
         fg_color -> Varchar,
+        short_name -> Nullable<Varchar>,
     }
 }
 
