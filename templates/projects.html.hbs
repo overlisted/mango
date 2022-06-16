@@ -23,14 +23,12 @@
 
       .project-title {
         display: flex;
-        align-items: center;
-        margin-bottom: 8px;
+        justify-content: space-between;
       }
 
-      .project-links {
-        display: flex;
-        margin-top: 8px;
-        justify-content: end;
+      .project-title h2 {
+        margin-bottom: 8px;
+        flex-shrink: 0;
       }
 
       article {
@@ -46,39 +44,54 @@
           margin-bottom: 16px;
         }
 
-        #project-{{project.id}} .bg-space {
+        #project-{{project.id}} ul {
+          display: flex;
+          align-items: stretch;
+          justify-content: end;
+          flex-wrap: wrap;
+        }
+
+        #project-{{project.id}} > article > img {
           width: 30%;
-          background-position: right;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-image: url("{{project.image}}");
         }
 
         {{#each tags}}
           #project-tag-{{extra.id}} {
-            display: inline;
-            line-height: 1;
+            display: flex;
+            align-items: center;
+            line-height: 1.25;
             margin-left: 8px;
+            margin-bottom: 8px;
             border-radius: 4px;
             padding: 6px;
             background-color: {{type.bg_color}};
             color: {{type.fg_color}};
+            border: 1px solid transparent;
           }
         {{/each}}
 
         {{#each links}}
           #project-link-{{extra.id}} {
-            margin-right: 16px;
+            display: flex;
+            margin-left: 8px;
+            margin-bottom: 8px;
+          }
+
+          #project-link-{{extra.id}} a {
             display: flex;
             align-items: center;
-            border-radius: 6px;
-            padding: 8px;
+            border-radius: 4px;
+            padding: 6px;
             background-color: {{type.bg_color}};
             color: {{type.fg_color}};
             border: 1px solid {{type.border_color}};
           }
 
-          #project-link-{{extra.id}} > img {
+          #project-link-{{extra.id}} span {
+            line-height: 1.25;
+          }
+
+          #project-link-{{extra.id}} img {
             margin-right: 8px;
           }
         {{/each}}
@@ -103,22 +116,20 @@
                     {{#each tags}}
                       <li id="project-tag-{{extra.id}}">{{type.name}}</li>
                     {{/each}}
+                    {{#each links}}
+                      <li id="project-link-{{extra.id}}">
+                        <a class="shadow" href="{{extra.url}}">
+                          <img alt="{{type.short_name}}" src="{{type.icon}}" height="16">
+                          <span>{{extra.name}}</span>
+                        </a>
+                      </li>
+                    {{/each}}
                   </ul>
                 </div>
                 <p>{{project.description}}</p>
-                <ul class="project-links">
-                  {{#each links}}
-                    <li>
-                      <a class="shadow" id="project-link-{{extra.id}}" href="{{extra.url}}">
-                        <img alt="{{type.short_name}}" src="{{type.icon}}" height="24">
-                        <span>{{extra.name}}</span>
-                      </a>
-                    </li>
-                  {{/each}}
-                </ul>
               </div>
               {{#if project.image}}
-                <div class="bg-space"></div>
+                <img src="{{project.image}}">
               {{/if}}
             </article>
           </li>
