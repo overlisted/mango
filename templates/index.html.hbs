@@ -37,20 +37,6 @@
         grid-column-start: 3;
       }
 
-      @media (max-width: 1432px) {
-        body {
-          grid-template-columns: 1000px;
-        }
-
-        header, main {
-          grid-column-start: 1;
-        }
-
-        aside {
-          display: none;
-        }
-      }
-
       main > article {
         display: grid;
         grid-template-rows: auto auto;
@@ -165,6 +151,37 @@
           }
         {{/each}}
       {{/each}}
+
+      @media (max-width: 1432px) {
+        body {
+          grid-template-columns: 1000px;
+        }
+
+        header, main {
+          grid-column-start: 1;
+        }
+
+        aside {
+          display: none;
+        }
+      }
+
+      @media (max-width: 1000px) {
+        body {
+          grid-template-columns: 100%;
+        }
+      }
+
+      @media (max-width: 700px) {
+        main > article {
+          grid-auto-flow: row;
+          grid-template-columns: auto;
+        }
+
+        #highlights > ul {
+          grid-template-columns: auto;
+        }
+      }
     </style>
   </head>
   <body>

@@ -96,6 +96,22 @@
           }
         {{/each}}
       {{/each}}
+
+      @media (max-width: 1000px) {
+        body {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .project-title {
+          display: block;
+        }
+
+        article > img {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
