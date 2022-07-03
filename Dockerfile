@@ -3,9 +3,7 @@ RUN apt update; apt install -y libpq-dev
 
 WORKDIR /code
 COPY . .
-RUN cargo build -r
-RUN mv ./target/release/mango /mango
-RUN rm -rf ./target
+RUN cargo build -r; mv ./target/release/mango /mango; rm -rf ./target
 
 EXPOSE 8000
 CMD /mango
