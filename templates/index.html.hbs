@@ -205,7 +205,7 @@
     <main>
       <article class="bg indent shadow">
         <h1>{{config.title}}</h1>
-        <p>{{config.about}}</p>
+        <p>{{{config.about}}}</p>
 
         <ul id="links">
           {{#each config.links}}
@@ -242,7 +242,7 @@
               <article>
                 <div class="indent">
                   <h2>{{project.name}}</h1>
-                  <p>{{project.description}}</p>
+                  <p>{{{project.description}}}</p>
                 </div>
                 {{#if project.image}}
                   <img class="image" src="{{project.image}}" alt="Demo screenshot">
